@@ -1,0 +1,21 @@
+﻿metadata:
+  name: nfs
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 192.168.50.32
+  share: /share/kubernetes
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
+  - hard
+  - nfsvers=4.1
+---
+kind: PersistentVolumeClaim
+metadata:
+  name: test-pvx
+spec:
+  storageClassName: nfs-csi
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
